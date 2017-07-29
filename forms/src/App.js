@@ -44,6 +44,8 @@ class Content extends Component{
                 <h4>{this.state.myInputValue}</h4>
                 <EssayComponent/>
                 <FlavorForm/>
+                <hr/>
+                <Reservation/>
             </div>
         );
     }
@@ -116,6 +118,57 @@ class FlavorForm extends Component{
                     </select>
                 </label>
                 <button type="submit">submit</button>
+            </form>
+        );
+    }
+}
+class Reservation extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            isGoing : true,
+            numberOfGuests :2
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+    handleSubmit(e){
+        alert(this.state.numberOfGuests);
+        e.preventDefault();
+    }
+    handleInputChange(e){
+        const target = e.target;
+        const value = target.type === "checkbox" ? target.checked : target.value
+        const name = target.name;
+        this.setState({
+            [name]:value
+        });
+        console.log(name , value);
+
+    }
+    render(){
+        return(
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Are you going to the party?
+                    <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange}
+                    />
+                </label>
+                <br/>
+                <label>
+                    How many Guests will You bring?
+                    <input
+                        name="numberOfGuests"
+                        type="number"
+                        checked={this.state.numberOfGuests}
+                        onChange={this.handleInputChange}
+                    />
+                </label>
+                <button type="submit">Submit</button>
             </form>
         );
     }
