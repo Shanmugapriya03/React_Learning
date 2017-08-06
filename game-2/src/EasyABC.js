@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import alphabets from './alphabets.json';
+import classNames from 'classnames'
 export default class EasyABC extends Component{
     constructor(props){
         super(props);
@@ -12,7 +13,6 @@ export default class EasyABC extends Component{
         this.next= this.next.bind(this);
     }
     next(){
-        console.log("next button clicked");
         if(this.state.currentTick <2){
             this.setState({currentTick:this.state.currentTick+1})
         }else{
@@ -21,6 +21,8 @@ export default class EasyABC extends Component{
 
     }
     render(){
+        let showImage =this.state.currentTick !== 0? true : false;
+        let showWord =this.state.currentTick ===2? true : false;
         return(
             <div className="game">
                 <div className="option">
@@ -37,14 +39,14 @@ export default class EasyABC extends Component{
                     <div className="fields">
                         <div className="field-block">
                             <div className="left-field">
-                                <div className="placeholder-span hide">Click next to view image</div>
-                                <img className="letter-image"
+                                <div className={classNames('placeholder-span', {hide: showImage})}>Click next to view image</div>
+                                <img className={classNames('letter-image', {hide: !showImage})}
                                     alt={this.state.alphabets[this.state.currentPosition].word}
                                     src={this.state.alphabets[this.state.currentPosition].image}/>
                             </div>
                             <div className="right-field">
-                                <div className="placeholder-span hide">Click next to here spelling</div>
-                                <div className="word">
+                                <div className={classNames('placeholder-span', {hide: showWord})}>Click next to here spelling</div>
+                                <div className={classNames('word', {hide: !showWord})}>
                                     {this.state.alphabets[this.state.currentPosition].word.toUpperCase()}
                                 </div>
                             </div>
